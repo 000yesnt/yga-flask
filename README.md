@@ -1,6 +1,6 @@
 [![Test Flask app](https://github.com/000yesnt/yesntga-flask/actions/workflows/test.yml/badge.svg)](https://github.com/000yesnt/yesntga-flask/actions/workflows/test.yml) [![Deploy Flask app](https://github.com/000yesnt/yesntga-flask/actions/workflows/deploy.yml/badge.svg)](https://github.com/000yesnt/yesntga-flask/actions/workflows/deploy.yml)
 # yesnt.ga - flask backend
-Docker image for my Flask app. As of writing, this isn't what the server's running yet.
+Docker image for my Flask app. This is currently what my server is running, though it's not constantly up-to-date.
 The website HTML code is at the html folder. Read and seethe.
 
 I don't know how the FUCK docker works so if something goes wrong w/ docker-compose, scream about it in issues or make a PR.
