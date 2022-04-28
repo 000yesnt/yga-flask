@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- copied from chrome -->
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=0.1">
+    <meta property="og:video" content="{{url}}">
+    <meta property="og:video:secure_url" content="{{url}}">
+    <meta property="og:video:type" content="video/mp4">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>you found a video</title>
+    <style>
+        video {
+            -webkit-user-select: none;
+            display: block;
+            margin: auto;
+            background-color: hsl(0, 0%, 90%);
+            transition: background-color 300ms;
+            height: 100vh
+        }
+    </style>
+</head>
+<body style="margin: 0px; background: #0e0e0e; height:100vh">
+<video autoplay controls muted>
+    <source src="{{url}}" type="video/mp4">sus
+</video>
+</body>
+</html>

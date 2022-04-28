@@ -1,0 +1,59 @@
+version: "3.5"
+services:
+  db:
+    build:
+      context: .
+      dockerfile: docker/db.dockerfile
+    ports:
+      - "3366:3306"
+    secrets:
+      - mysql_root_password
+      - mysql_password
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+      MYSQL_DATABASE: yga
+      MYSQL_USER: yga
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
+    volumes:
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", '/usr/bin/mysql --user=yga --password="$$(cat /run/secrets/mysql_password)" --execute "SHOW DATABASES;"']
+      interval: 1s
+      timeout: 10s
+      retries: 20
+  flask:
+    build:
+      context: .
+      dockerfile: docker/flask.dockerfile
+    depends_on:
+      - db
+    secrets:
+      - mysql_password
+      - flask_key
+    volumes:
+      - depot:/var/depot
+      - lynx:/var/lynx
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx.dockerfile
+    depends_on:
+      - flask
+    ports:
+      - "8086:8086"
+    volumes:
+      - depot:/var/depot
+      - lynx:/var/lynx
+
+volumes:
+  db:
+  depot:
+  lynx:
+
+secrets:
+  mysql_password:
+    file: ./secrets/mysql_password
+  mysql_root_password:
+    file: ./secrets/mysql_root_password
+  flask_key:
+    file: ./secrets/flask_key

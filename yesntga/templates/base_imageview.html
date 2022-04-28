@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- copied from chrome -->
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=0.1">
+    <meta property="og:image" content="{{url}}">
+    <meta property="og:image:secure_url" content="{{url}}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <title>{{url}}</title>
+    <style>
+        img {
+            -webkit-user-select: none;
+            display: block;
+            margin: auto;
+            background-color: hsl(0, 0%, 90%);
+            transition: background-color 300ms;
+            height: 100vh
+        }
+    </style>
+</head>
+<body style="margin: 0px; background: #0e0e0e; height:100%">
+<img style="" src="{{url}}">
+</body>
+</html>

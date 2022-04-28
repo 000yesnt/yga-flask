@@ -1,0 +1,13 @@
+flask
+flask-sqlalchemy
+flask-limiter
+xxhash
+gevent
+sqlalchemy
+python-magic
+pymysql
+itsdangerous
+flask-restful
+toml
+gunicorn
+cryptography
