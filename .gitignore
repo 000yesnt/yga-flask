@@ -143,4 +143,4 @@ cython_debug/
 html/depot/
 *.log*
 
-
+secrets/
