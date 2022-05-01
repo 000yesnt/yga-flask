@@ -51,7 +51,7 @@ def allowed_file(mime):
         # Video
         'video/mp4', 'video/webm', 'video/x-matroska',
         # Audio
-        'audio/ogg', 'audio/opus', 'audio/webm', 'audio/wav', 'audio/mp4', 'audio/x-matroska',
+        'audio/ogg', 'audio/opus', 'audio/webm', 'audio/wav', 'audio/mp4', 'audio/x-matroska', 'audio/mpeg',
         # Image
         'image/png', 'image/jpeg']
     if mime not in allowed_mime_types:
