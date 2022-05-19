@@ -1,4 +1,4 @@
-version: "3.5"
+version: "3.6"
 services:
   db:
     build:
@@ -16,17 +16,15 @@ services:
       MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
     volumes:
       - db:/var/lib/mysql
-    healthcheck:
-      test: ["CMD-SHELL", '/usr/bin/mysql --user=yga --password="$$(cat /run/secrets/mysql_password)" --execute "SHOW DATABASES;"']
-      interval: 1s
-      timeout: 10s
-      retries: 20
   flask:
     build:
       context: .
       dockerfile: docker/flask.dockerfile
     depends_on:
       - db
+    restart: on-failure
+    tmpfs:
+      - /run
     secrets:
       - mysql_password
       - flask_key

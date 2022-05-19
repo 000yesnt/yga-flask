@@ -1,19 +1,21 @@
+from gevent import monkey
+monkey.patch_all()
+
 from os import getcwd
 import logging
-from gevent import monkey
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import util.limits
 import util.log
 from itsdangerous import URLSafeSerializer
-monkey.patch_all()
 
 db = globals().get('db') or SQLAlchemy()
 sign = globals().get('sign') or URLSafeSerializer('UNSAFE')
 app = globals().get('app') or Flask(__name__)
 
 def initialize(conf: dict = None) -> Flask:
-    """Application factory. Takes a dict including settings as only argument. Returns a fully configured Flask app."""
+    """Application factory. Takes a dict including settings as only argument. 
+    Returns a fully configured Flask app."""
     global db
     global app
     global sign

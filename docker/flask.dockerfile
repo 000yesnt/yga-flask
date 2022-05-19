@@ -1,13 +1,22 @@
-FROM python:3.10-slim
+FROM python:3.10-slim as venvbuild
 
-COPY ./yesntga/ /app
-COPY ./requirements.txt /app
-COPY ./wsgi.py /app
-WORKDIR /app
+RUN apt update && apt install -y libmagic1
 
-RUN apt update
-RUN apt install -y libmagic-dev
+RUN python3 -m venv /venv
+ENV PATH="/venv/bin:$PATH"
+COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
+FROM python:3.10-alpine as venvrun
+COPY --from=venvbuild /venv /venv
+COPY ./yesntga/ /app
+COPY ./start /app
+COPY ./wsgi.py /app
+COPY ./gunicorn.conf.py /app
+WORKDIR /app
+
+RUN apk add libmagic
+ENV PATH="/venv/bin:$PATH"
+
 EXPOSE 8000
-ENTRYPOINT ["gunicorn", "-w", "6", "-k", "gevent", "-b", "0.0.0.0", "wsgi:app", "--access-logfile=-", "--error-logfile=-"]
+ENTRYPOINT ["gunicorn", "wsgi:app"]
