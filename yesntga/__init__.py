@@ -1,12 +1,9 @@
-from gevent import monkey
-monkey.patch_all()
-
 from os import getcwd
 import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import util.limits
-import util.log
+import yesntga.util.limits
+import yesntga.util.log
 from itsdangerous import URLSafeSerializer
 
 db = globals().get('db') or SQLAlchemy()
@@ -46,6 +43,3 @@ def initialize(conf: dict = None) -> Flask:
     app.register_blueprint(routes.errors)
 
     return app
-
-if __name__ == "__main__":
-    app.run()
