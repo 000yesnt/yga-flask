@@ -24,5 +24,3 @@ The compose file creates three containers: **flask**, **db** and **nginx**. Thei
 * Port 8086
 
 This code does not include the blog, or any Depot users.
-
-[//] # (TODO: Add Depot howto; add blog.)
