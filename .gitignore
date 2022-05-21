@@ -144,3 +144,5 @@ html/depot/
 *.log*
 
 secrets/
+
+.vscode/
