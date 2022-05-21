@@ -1,8 +1,6 @@
 # yesnt.ga - flask backend
-Docker image for my Flask app. This is currently what my server is running, though it's not constantly up-to-date.
+Docker image for my Flask app.
 The website HTML code is at the html folder. Read and seethe.
-
-I don't know how the FUCK docker works so if something goes wrong w/ docker-compose, scream about it in issues or make a PR.
 
 # Setting up
 This project uses Docker Compose. You need to set up secrets before composing; see [secrets/README.md](secrets/README.md)
@@ -24,3 +22,10 @@ The compose file creates three containers: **flask**, **db** and **nginx**. Thei
 * Port 8086
 
 This code does not include the blog, or any Depot users.
+
+# Running
+
+Make a venv from `requirements.txt`. I tested this app with Python 3.8 and the Docker image uses Python 3.10. Anything in that version bracket should work.
+
+In the `/app` directory, assuming Bash is your command line, run:
+`FLASK_APP=wsgi:app FLASK_ENV=development flask run`
