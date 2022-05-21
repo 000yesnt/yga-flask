@@ -30,7 +30,7 @@ services:
       - flask_key
     volumes:
       - depot:/var/depot
-      - lynx:/var/lynx
+
   nginx:
     build:
       context: .
@@ -41,12 +41,10 @@ services:
       - "8086:8086"
     volumes:
       - depot:/var/depot
-      - lynx:/var/lynx
 
 volumes:
   db:
   depot:
-  lynx:
 
 secrets:
   mysql_password:
