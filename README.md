@@ -1,4 +1,3 @@
-[![Test Flask app](https://github.com/000yesnt/yesntga-flask/actions/workflows/test.yml/badge.svg)](https://github.com/000yesnt/yesntga-flask/actions/workflows/test.yml) [![Deploy Flask app](https://github.com/000yesnt/yesntga-flask/actions/workflows/deploy.yml/badge.svg)](https://github.com/000yesnt/yesntga-flask/actions/workflows/deploy.yml)
 # yesnt.ga - flask backend
 Docker image for my Flask app. This is currently what my server is running, though it's not constantly up-to-date.
 The website HTML code is at the html folder. Read and seethe.
@@ -26,5 +25,4 @@ The compose file creates three containers: **flask**, **db** and **nginx**. Thei
 
 This code does not include the blog, or any Depot users.
 
-For the app, you'll need additional setup for some of the routes:
-* [Lynx @ /lynx; LynxWebP @ /lynx/webp](docs/lynx.md)
+[//] # (TODO: Add Depot howto; add blog.)
