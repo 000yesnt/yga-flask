@@ -7,7 +7,7 @@ errors = Blueprint('errors', __name__, template_folder='../templates')
 
 @routebp.route("/ip")
 def ihaveyourip():
-	return render_template('yourip.html', ip=request.headers.get("CF-Connecting-IP", "sussy ball"))
+	return render_template('yourip.html', ip=request.headers.get("X-Real-IP", "sussy ball"))
 
 @errors.app_errorhandler(NotFound)
 def fuck_off(e):
