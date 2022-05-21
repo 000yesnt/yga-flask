@@ -1,2 +1,1 @@
-from yesntga import initialize
-app = initialize()
+from yesntga import app

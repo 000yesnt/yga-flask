@@ -1,14 +1,11 @@
 from os import getcwd
 import logging
-from flask import Flask
+from flask import Flask, Blueprint
+from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 import yesntga.util.limits
 import yesntga.util.log
 from itsdangerous import URLSafeSerializer
-
-db = globals().get('db') or SQLAlchemy()
-sign = globals().get('sign') or URLSafeSerializer('UNSAFE')
-app = globals().get('app') or Flask(__name__)
 
 def initialize(conf: dict = None) -> Flask:
     """Application factory. Takes a dict including settings as only argument. 
@@ -36,10 +33,16 @@ def initialize(conf: dict = None) -> Flask:
     app.jinja_env.globals.update(index_of=lambda lst, itm: lst.index(itm))
 
     # Configure routes
-    import routes
-    import apis
-    app.register_blueprint(apis.apibp)
-    app.register_blueprint(routes.routebp)
-    app.register_blueprint(routes.errors)
+    import yesntga.views
+    import yesntga.apis.depot
+    __apibp__ = Blueprint('apis', __name__, template_folder='templates')
+    __api__ = Api(__apibp__)
+    __api__.add_resource(yesntga.apis.depot.Depot, '/api/depot')
+    app.register_blueprint(yesntga.views.routebp)
+    app.register_blueprint(yesntga.views.errors)
 
     return app
+
+db = globals().get('db') or SQLAlchemy()
+sign = globals().get('sign') or URLSafeSerializer('UNSAFE')
+app = globals().get('app') or initialize()

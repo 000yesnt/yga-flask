@@ -1,3 +1,3 @@
 from yesntga import db
-from models import depot
+from yesntga.models import depot
 db.create_all()

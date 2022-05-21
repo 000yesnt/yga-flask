@@ -15,12 +15,12 @@ from itsdangerous.exc import BadData, BadSignature
 import json
 import magic
 
-import util.auth
-from util.limits import limiter
-from util.log import lg
-from util import make_unique_name, get_tree_size, sizeof_fmt
+import yesntga.util.auth
+from yesntga.util.limits import limiter
+from yesntga.util.log import lg
+from yesntga.util import make_unique_name, mplat_mime, rb
 from yesntga import db, sign
-from models.depot import DepotUser, DepotFile
+from yesntga.models.depot import DepotUser, DepotFile
 
 def validate(token: str) -> Union[DepotUser, bool]:
     if "pytest" in sys.modules:
@@ -81,12 +81,12 @@ class Depot(Resource):
             return {'success': False,
                     'reason': 'invalid'}, 400
         # Is the file an allowed format? Use libmagic
-        if not allowed_file(util.mplat_mime(f)):
+        if not allowed_file(mplat_mime(f)):
             return {'success': False,
                     'reason': 'invalid'}, 400
         # Get file checksum for deduplication using the first 64KB.
         # TODO: Is this even necessary?
-        checksum = xxhash.xxh3_128_hexdigest(util.rb(f,65536))
+        checksum = xxhash.xxh3_128_hexdigest(rb(f,65536))
         # Query database for checksum
         sql = DepotFile.query.filter_by(hash=checksum).first()
         if bool(sql) and os.path.exists(os.path.join(media_root, sql.filename)):
