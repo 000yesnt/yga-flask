@@ -1,9 +1,25 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, make_response, render_template, request, current_app
+from yesntga import app
+import os.path
+
 from werkzeug.exceptions import NotFound, InternalServerError
+import json 
 
 routebp = Blueprint('routes', __name__, template_folder='../templates')
 errors = Blueprint('errors', __name__, template_folder='../templates')
 
+@routebp.route('/health')
+def health_check():
+	with app.app_context() as a:
+		payload = {
+			'healthy': True,
+			'version': current_app.config.get('VERSION'),
+			'type': current_app.config.get('RUN_TYPE'),
+			'meow': 'meow!'
+		}
+	r = make_response(json.dumps(payload))
+	r.headers['Content-Type'] = 'application/json'
+	return r
 
 @routebp.route("/ip")
 def ihaveyourip():
