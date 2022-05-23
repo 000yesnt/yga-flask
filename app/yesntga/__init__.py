@@ -43,6 +43,6 @@ def initialize(conf: dict = None) -> Flask:
 
     return app
 
-db = globals().get('db') or SQLAlchemy()
-sign = globals().get('sign') or URLSafeSerializer('UNSAFE')
-app = globals().get('app') or initialize()
+db: SQLAlchemy = globals().get('db') or SQLAlchemy()
+sign: URLSafeSerializer = globals().get('sign') or URLSafeSerializer('UNSAFE')
+app: Flask = globals().get('app') or initialize()
