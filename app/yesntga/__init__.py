@@ -1,10 +1,9 @@
-from os import getcwd
 import logging
 from flask import Flask, Blueprint
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
-import yesntga.util.limits
-import yesntga.util.log
+from yesntga.util.limits import limiter
+from yesntga.util.log import lg
 from itsdangerous import URLSafeSerializer
 
 def initialize(conf: dict = None) -> Flask:
@@ -13,36 +12,49 @@ def initialize(conf: dict = None) -> Flask:
     global db
     global app
     global sign
+
     app = Flask(__name__)
+    app.config.from_object('base_config')
+
     if conf is not None:
+        lg.info('LOADING Dict Config')
         for k in conf:
             app.config[k] = conf[k]
     else:
-        app.config.from_object('config')
-    # Kick off logging early
-    util.log.lg.setLevel(app.config.get('LOGLEVEL', logging.INFO))
+        lg.info('LOADING Normal (Env var) Config')
+        app.config.from_envvar('CONFIG_PATH')
+
     # Configure signer and database
-    sign = URLSafeSerializer(app.config['SECRET_KEY'])
+    sign = URLSafeSerializer(app.config.get('SECRET_KEY'))
     db = SQLAlchemy(app)
     db.init_app(app)
 
     # Configure utilities
-    util.limits.limiter.init_app(app)
-    util.log.lg.debug(getcwd())
-    util.log.lg.debug(str(app.url_map))
+    limiter.init_app(app)
     app.jinja_env.globals.update(index_of=lambda lst, itm: lst.index(itm))
 
     # Configure routes
     import yesntga.views
-    import yesntga.apis.depot
-    __apibp__ = Blueprint('apis', __name__, template_folder='templates')
-    __api__ = Api(__apibp__)
-    __api__.add_resource(yesntga.apis.depot.Depot, '/api/depot')
     app.register_blueprint(yesntga.views.routebp)
     app.register_blueprint(yesntga.views.errors)
 
+    # Configure APIs
+    __apibp__ = Blueprint('apis', __name__, template_folder='templates')
+    __api__ = Api(__apibp__)
+
+    from yesntga.apis.depot import Depot
+    __api__.add_resource(Depot, '/api/depot')
+
+    app.register_blueprint(__apibp__)
+
+    lg.info("App initialized successfully!!!")
+    lg.debug(str(app.url_map))
+
     return app
 
-db: SQLAlchemy = globals().get('db') or SQLAlchemy()
-sign: URLSafeSerializer = globals().get('sign') or URLSafeSerializer('UNSAFE')
-app: Flask = globals().get('app') or initialize()
+db: SQLAlchemy = globals().get('db')
+sign: URLSafeSerializer = globals().get('sign')
+app: Flask = globals().get('app')
+
+if __name__ == 'yesntga':
+    app = initialize()

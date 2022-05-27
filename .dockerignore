@@ -141,8 +141,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-*.log
-*.log*
-
-secrets/
-.vscode/
+**/*.log*
+# Byte-compiled / optimized / DLL files (dockerignore)
+**/__pycache__/*
+**/*.py[cod]
+**/*$py.class
+**/*.pypy37.pyc

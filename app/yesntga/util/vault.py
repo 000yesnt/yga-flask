@@ -1,5 +1,6 @@
 from io import FileIO
 import os
+import warnings
 from os.path import exists, sep, join
 from typing import Any
 
@@ -17,6 +18,9 @@ class Vault:
     Can be initialized with arguments to read somewhere other than /run/secets."""
     def __init__(self, secret_path: str = "/run/secrets"):
         self.SECRET_PATH = secret_path
+        self.exists = exists(self.SECRET_PATH)
+        if not self.exists:
+            warnings.warn("Secrets folder does not exist. The program may run differently or crash.", warnings.RuntimeWarning)
 
     def get(self, filename: str, default_value: Any = None, read_mode: str = "r"):
         """Gets the contents of a file in the SECRET_PATH (default /run/secrets) directory.
