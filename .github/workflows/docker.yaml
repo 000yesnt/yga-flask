@@ -1,0 +1,12 @@
+name: Deploy deockeri mage
+on: [push]
+
+jobs:
+  compose:
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: composae
+        run: docker-compose up
