@@ -43,8 +43,8 @@ services:
       - depot-dev:/var/depot
 
 volumes:
-  db:
-  depot:
+  db-dev:
+  depot-dev:
 
 secrets:
   mysql_password:
