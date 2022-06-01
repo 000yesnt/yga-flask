@@ -1,7 +1,10 @@
 version: "3.6"
 services:
   db-dev:
-    hostname: db
+    networks:
+      dev:
+        aliases:
+          - db
     build:
       context: .
       dockerfile: docker/db.dockerfile
@@ -17,8 +20,12 @@ services:
       MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
     volumes:
       - db-dev:/var/lib/mysql
+
   flask-dev:
-    hostname: flask
+    networks:
+      dev:
+        aliases:
+          - flask
     build:
       context: .
       dockerfile: docker/flask.dockerfile
@@ -55,3 +62,6 @@ secrets:
     file: ./secrets/mysql_root_password
   flask_key:
     file: ./secrets/flask_key
+
+networks:
+  dev:

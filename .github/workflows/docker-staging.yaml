@@ -22,4 +22,4 @@ jobs:
           openssl rand -hex 8 > secrets/flask_key
 
       - name: compose (dev)
-        run: docker-compose -f docker-staging-compose.yml up 
+        run: docker-compose -f docker-staging-compose.yml up -d --build
