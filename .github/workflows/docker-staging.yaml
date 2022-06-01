@@ -20,9 +20,9 @@ jobs:
 
       - name: generate secrets
         run: |
-          openssl rand -hex 8 > secrets/mysql_password
-          openssl rand -hex 8 > secrets/mysql_root_password
-          openssl rand -hex 8 > secrets/flask_key
+          openssl rand -hex 8 | tr -d "\n" > secrets/mysql_password
+          openssl rand -hex 8 | tr -d "\n" > secrets/mysql_root_password
+          openssl rand -hex 8 | tr -d "\n" > secrets/flask_key
 
       - name: compose (dev)
         run: docker-compose -f docker-staging-compose.yml up -d --build
