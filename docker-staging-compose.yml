@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: docker/db.dockerfile
     ports:
-      - "3366:3306"
+      - "30366:3306"
     secrets:
       - mysql_root_password
       - mysql_password
