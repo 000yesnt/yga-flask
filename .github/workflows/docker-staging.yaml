@@ -1,0 +1,24 @@
+name: docker-compose dev
+on: 
+  push:
+    branches:
+      - dev
+
+jobs:
+  compose:
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: cleanup
+        run: docker-compose -f docker-staging-compose.yml down -v 
+        
+      - name: generate secrets
+        run: |
+          openssl rand -hex 8 > secrets/mysql_password
+          openssl rand -hex 8 > secrets/mysql_root_password
+          openssl rand -hex 8 > secrets/flask_key
+
+      - name: compose (dev)
+        run: docker-compose -f docker-staging-compose.yml up 

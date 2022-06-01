@@ -1,5 +1,8 @@
-name: Deploy deockeri mage
-on: [push]
+name: docker-compose main
+on: 
+  push:
+    branches:
+      - main
 
 jobs:
   compose:
@@ -8,5 +11,11 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       
-      - name: composae
+      - name: write secrets
+        run: |
+          echo ${{secrets.FLASK_KEY}} > secrets/flask_key
+          echo ${{secrets.MYSQL_PASSWORD}} > secrets/mysql_password
+          echo ${{secrets.MYSQL_ROOT_PASSWORD}} > secrets/mysql_root_password
+
+      - name: compose
         run: docker-compose up
