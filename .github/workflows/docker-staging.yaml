@@ -12,8 +12,9 @@ jobs:
         uses: actions/checkout@v3
       
       - name: cleanup
+        continue-on-error: true
         run: docker-compose -f docker-staging-compose.yml down -v 
-        
+
       - name: generate secrets
         run: |
           openssl rand -hex 8 > secrets/mysql_password
