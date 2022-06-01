@@ -1,6 +1,7 @@
 version: "3.6"
 services:
   db-dev:
+    hostname: db
     build:
       context: .
       dockerfile: docker/db.dockerfile
@@ -17,6 +18,7 @@ services:
     volumes:
       - db-dev:/var/lib/mysql
   flask-dev:
+    hostname: flask
     build:
       context: .
       dockerfile: docker/flask.dockerfile
