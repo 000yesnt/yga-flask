@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: docker/flask.dockerfile
     depends_on:
-      - db
+      - db-dev
     restart: on-failure
     tmpfs:
       - /run
@@ -36,7 +36,7 @@ services:
       context: .
       dockerfile: docker/nginx.dockerfile
     depends_on:
-      - flask
+      - flask-dev
     ports:
       - "10086:8086"
     volumes:
