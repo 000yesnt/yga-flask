@@ -13,7 +13,10 @@ jobs:
       
       - name: cleanup
         continue-on-error: true
-        run: docker-compose -f docker-staging-compose.yml down -v 
+        run: |
+          docker-compose -f docker-staging-compose.yml down -v 
+          docker volume rm yga-flask_db-dev
+          docker volume rm yga-flask_depot-dev
 
       - name: generate secrets
         run: |
