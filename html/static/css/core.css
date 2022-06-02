@@ -30,6 +30,10 @@ h1 {
   background-image: linear-gradient(blueviolet 56%, black);
 }
 
+.bg-gay {
+  background-image: linear-gradient(#e40303 16.6%, #ff8c00 16.6% 33.2%, #ffed00 33.2% 49.8%, #008026 49.8% 66.4%, #004dff 66.4% 83%, #750787 83%)
+}
+
 .bg-black {
   background-color: black;
 }
