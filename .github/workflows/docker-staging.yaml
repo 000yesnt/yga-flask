@@ -1,0 +1,31 @@
+name: docker-compose dev
+on: 
+  push:
+    branches:
+      - dev
+
+jobs:
+  compose:
+    runs-on: [self-hosted, linux]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      
+      - name: cleanup containers
+        continue-on-error: true
+        run: docker-compose -f docker-staging-compose.yml down -v 
+
+      - name: cleanup volumes
+        continue-on-error: true
+        run: |
+          docker volume rm yga-flask_db-dev
+          docker volume rm yga-flask_depot-dev
+
+      - name: generate secrets
+        run: |
+          openssl rand -hex 8 | tr -d "\n" > secrets/mysql_password
+          openssl rand -hex 8 | tr -d "\n" > secrets/mysql_root_password
+          openssl rand -hex 8 | tr -d "\n" > secrets/flask_key
+
+      - name: compose (dev)
+        run: docker-compose -f docker-staging-compose.yml up -d --build
