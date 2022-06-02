@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from yesntga.util.limits import limiter
 from yesntga.util.log import lg
 from itsdangerous import URLSafeSerializer
-
+import importlib
 def initialize(conf: dict = None) -> Flask:
     """Application factory. Takes a dict including settings as only argument. 
     Returns a fully configured Flask app."""
@@ -42,8 +42,10 @@ def initialize(conf: dict = None) -> Flask:
     __apibp__ = Blueprint('apis', __name__, template_folder='templates')
     __api__ = Api(__apibp__)
 
-    from yesntga.apis.depot import Depot
-    __api__.add_resource(Depot, '/api/depot')
+    for i in app.config.get('APIS'): 
+        mod = importlib.import_module(i[0])
+        api = mod.__dict__.get(i[1])
+        __api__.add_resource(api, i[2])
 
     app.register_blueprint(__apibp__)
 
