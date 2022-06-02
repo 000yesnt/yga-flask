@@ -41,6 +41,8 @@ services:
       - depot-dev:/var/depot
 
   nginx-dev:
+    networks:
+      - dev
     build:
       context: .
       dockerfile: docker/nginx.dockerfile

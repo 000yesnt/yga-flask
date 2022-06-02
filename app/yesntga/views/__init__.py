@@ -15,7 +15,12 @@ def health_check():
 			'healthy': True,
 			'version': current_app.config.get('VERSION'),
 			'type': current_app.config.get('RUN_TYPE'),
-			'meow': 'meow!'
+			'meow': 'meow!',
+			'ip': {
+				'X-Real-IP': request.headers.get('X-Real-IP'),
+				'X-Forwarded-For': request.headers.get('X-Forwarded-For'),
+				'Forwarded': request.headers.get('Forwarded')
+			}
 		}
 	r = make_response(json.dumps(payload))
 	r.headers['Content-Type'] = 'application/json'
