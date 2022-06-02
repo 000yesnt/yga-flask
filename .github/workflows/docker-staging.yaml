@@ -11,10 +11,13 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
       
-      - name: cleanup
+      - name: cleanup containers
+        continue-on-error: true
+        run: docker-compose -f docker-staging-compose.yml down -v 
+
+      - name: cleanup volumes
         continue-on-error: true
         run: |
-          docker-compose -f docker-staging-compose.yml down -v 
           docker volume rm yga-flask_db-dev
           docker volume rm yga-flask_depot-dev
 
