@@ -18,4 +18,4 @@ jobs:
           echo ${{secrets.MYSQL_ROOT_PASSWORD}} > secrets/mysql_root_password
 
       - name: compose
-        run: docker-compose up -d
+        run: docker-compose up -d --build
