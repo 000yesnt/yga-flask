@@ -12,10 +12,10 @@ errors = Blueprint('errors', __name__, template_folder='../templates')
 
 @routebp.route('/health')
 def health_check():
-	with app.app_context() as a:
+	with app.app_context():
 		payload = {
 			'healthy': True,
-			'api_failed': a.config.get('API_LOAD_FAIL', False),
+			'api_failed': current_app.config.get('API_LOAD_FAIL', False),
 			'type': 'view',
 			'version': current_app.config.get('VERSION'),
 			'type': current_app.config.get('RUN_TYPE'),

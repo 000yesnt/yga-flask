@@ -6,10 +6,10 @@ from os import urandom
 from base64 import urlsafe_b64encode
 class HealthCheck(Resource):
     def get(__self__):
-        with app.app_context() as a:
+        with app.app_context():
             payload = {
             	'healthy': True,
-                'api_failed': a.config.get('API_LOAD_FAIL', False),
+                'api_failed': current_app.config.get('API_LOAD_FAIL', False),
                 'type': 'api',
             	'version': current_app.config.get('VERSION'),
             	'type': current_app.config.get('RUN_TYPE'),
