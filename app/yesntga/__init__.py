@@ -1,3 +1,6 @@
+from gevent import monkey
+monkey.patch_all()
+
 import logging
 from flask import Flask, Blueprint
 from flask_restful import Api
@@ -44,11 +47,13 @@ def initialize(conf: dict = None) -> Flask:
     __apibp__ = Blueprint('apis', __name__, template_folder='templates')
     __api__ = Api(__apibp__)
 
+    app.config['LOADED_APIS'] = []
     for i in app.config.get('APIS'): 
         try:
             mod = importlib.import_module(i[0])
             api = mod.__dict__.get(i[1])
             __api__.add_resource(api, i[2])
+            app.config['LOADED_APIS'].append(i[1])
         except Exception as e:
             lg.critical(f'FAILED to load API {i}')
             lg.exception(e)

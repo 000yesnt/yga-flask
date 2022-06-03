@@ -10,7 +10,7 @@ class HealthCheck(Resource):
             payload = {
             	'healthy': True,
                 'api_failed': current_app.config.get('API_LOAD_FAIL', False),
-                'type': 'api',
+                'loaded_apis': current_app.config.get('LOADED_APIS'),
             	'version': current_app.config.get('VERSION'),
             	'type': current_app.config.get('RUN_TYPE'),
             	'meow': 'meow!',
