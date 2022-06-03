@@ -18,7 +18,7 @@ class HealthCheck(Resource):
             		'X-Forwarded-For': request.headers.get('X-Forwarded-For'),
             		'Forwarded': request.headers.get('Forwarded')
             	},
-                'cachebuster': urlsafe_b64encode(urandom(16))
+                'cachebuster': urlsafe_b64encode(urandom(16)).decode('utf-8')
             }
         r = make_response(json.dumps(payload))
         r.headers['Content-Type'] = 'application/json'
