@@ -6,6 +6,8 @@ from yesntga.util.limits import limiter
 from yesntga.util.log import lg
 from itsdangerous import URLSafeSerializer
 import importlib
+import traceback
+
 def initialize(conf: dict = None) -> Flask:
     """Application factory. Takes a dict including settings as only argument. 
     Returns a fully configured Flask app."""
@@ -47,8 +49,9 @@ def initialize(conf: dict = None) -> Flask:
             mod = importlib.import_module(i[0])
             api = mod.__dict__.get(i[1])
             __api__.add_resource(api, i[2])
-        except Exception:
+        except Exception as e:
             lg.critical(f'FAILED to load API {i}')
+            lg.exception(e)
             app.config['API_LOAD_FAIL'] = True
     app.register_blueprint(__apibp__)
 
