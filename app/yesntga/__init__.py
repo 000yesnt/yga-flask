@@ -43,10 +43,13 @@ def initialize(conf: dict = None) -> Flask:
     __api__ = Api(__apibp__)
 
     for i in app.config.get('APIS'): 
-        mod = importlib.import_module(i[0])
-        api = mod.__dict__.get(i[1])
-        __api__.add_resource(api, i[2])
-
+        try:
+            mod = importlib.import_module(i[0])
+            api = mod.__dict__.get(i[1])
+            __api__.add_resource(api, i[2])
+        except Exception:
+            lg.critical(f'FAILED to load API {i}')
+            app.config['API_LOAD_FAIL'] = True
     app.register_blueprint(__apibp__)
 
     lg.info("App initialized successfully!!!")
