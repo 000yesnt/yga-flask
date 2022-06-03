@@ -20,10 +20,11 @@ FROM python:3.10-alpine as venvrun
 COPY --from=venvtest /work /
 WORKDIR /app
 
-RUN apk add libmagic
+RUN apk add libmagic curl
 ENV PATH="/venv/bin:$PATH"
 ENV CONFIG_PATH="../prod_config.py"
 EXPOSE 8000
+HEALTHCHECK --interval=3s --timeout=3s CMD curl --fail http://localhost:8000/health || exit 1
 ENTRYPOINT ["gunicorn", "yesntga:app"]
 # If shit goes wrong, uncomment the line below:
 #ENTRYPOINT [ "tail", "-f", "/dev/null" ]
