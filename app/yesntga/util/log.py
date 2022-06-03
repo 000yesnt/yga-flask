@@ -7,7 +7,7 @@ file_handler = logging.handlers.TimedRotatingFileHandler(filename='core.log', wh
 std_handler = logging.StreamHandler()
 
 formatter = logging.Formatter(fmt="[%(levelname)s @ %(module)s/%(process)d | %(asctime)s] %(message)s")
-std_handler.setFormatter(file_formatter)
+std_handler.setFormatter(formatter)
 file_handler.setFormatter(formatter)
 
 lg.addHandler(file_handler)
