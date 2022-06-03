@@ -4,6 +4,8 @@ import os.path
 
 from werkzeug.exceptions import NotFound, InternalServerError
 import json 
+from os import urandom
+from base64 import urlsafe_b64encode
 
 routebp = Blueprint('routes', __name__, template_folder='../templates')
 errors = Blueprint('errors', __name__, template_folder='../templates')
@@ -13,6 +15,7 @@ def health_check():
 	with app.app_context() as a:
 		payload = {
 			'healthy': True,
+			'type': 'view',
 			'version': current_app.config.get('VERSION'),
 			'type': current_app.config.get('RUN_TYPE'),
 			'meow': 'meow!',
@@ -20,7 +23,8 @@ def health_check():
 				'X-Real-IP': request.headers.get('X-Real-IP'),
 				'X-Forwarded-For': request.headers.get('X-Forwarded-For'),
 				'Forwarded': request.headers.get('Forwarded')
-			}
+			},
+            'cachebuster': urlsafe_b64encode(urandom(16))
 		}
 	r = make_response(json.dumps(payload))
 	r.headers['Content-Type'] = 'application/json'

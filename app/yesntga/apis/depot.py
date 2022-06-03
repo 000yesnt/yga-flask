@@ -18,7 +18,7 @@ import magic
 import yesntga.util.auth
 from yesntga.util.limits import limiter
 from yesntga.util.log import lg
-from yesntga.util import make_unique_name, mplat_mime, rb
+from yesntga.util import rand_str, mplat_mime, rb
 from yesntga import db, sign
 from yesntga.models.depot import DepotUser, DepotFile
 
@@ -96,7 +96,7 @@ class Depot(Resource):
                     'filename': sql.filename}
         # Step 3: Process and save the file.
         # Make unique filename using the checksum we got from earlier
-        filename = make_unique_name(checksum) + \
+        filename = rand_str(checksum) + \
                    os.path.splitext(secure_filename(f.filename))[1]
         # Write to filesystem and database
         try:

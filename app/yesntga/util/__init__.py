@@ -28,7 +28,7 @@ def sizeof_fmt(num, suffix="B"):
         num /= 1024.0
     return f"{num:.1f}Yi{suffix}"
 
-def make_unique_name(fn: str):
+def rand_str(fn: str):
     """Makes an unique name using the input string as a seed"""
     l = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-'
     rng = random.Random(fn)
