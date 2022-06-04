@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cta</title>
+</head>
+<body id="sex">
+    <img src="/static/image/mmm.jpg" id="brother"/>
+    <audio autoplay loop id="hw17">
+        <source src="/static/highway17.mp3" type="audio/ogg">
+        my brother in christ your browser does not work
+    </audio>
+    <script>
+        var a = document.getElementById("hw17");
+        a.onplay = function() { 
+            brother = document.getElementById("brother");
+            brother.src = "/static/image/aaa.jpg";
+            //setTimeout( () => { alert("he is speaking"); }, 100);
+        }
+        function balz() {
+            a.play();
+        }
+        document.addEventListener("DOMContentLoaded", function(e) {
+            if(a.paused) {
+                const btn = document.createElement("button");
+                btn.innerText = "speak up";
+                btn.onclick = balz;
+                document.getElementById("sex").appendChild(btn)
+            } else {
+                brother = document.getElementById("brother");
+                brother.src = "/static/image/aaa.jpg";
+            }
+        })
+        
+    </script>
+</body>
+</html>
