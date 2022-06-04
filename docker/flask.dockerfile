@@ -13,7 +13,7 @@ COPY ./app /work/app
 WORKDIR /work/app 
 
 ENV PATH="/work/venv/bin:$PATH"
-ENV CONFIG_PATH="../test_config.py"
+ENV CONFIG_PATH="config/test_config.py"
 RUN python3 test.py
 
 FROM python:3.10-alpine as venvrun
@@ -22,7 +22,7 @@ WORKDIR /app
 
 RUN apk add libmagic curl
 ENV PATH="/venv/bin:$PATH"
-ENV CONFIG_PATH="../prod_config.py"
+ENV CONFIG_PATH="config/prod_config.py"
 EXPOSE 8000
 HEALTHCHECK --interval=3s --timeout=3s CMD curl --fail http://localhost:8000/health || exit 1
 ENTRYPOINT ["gunicorn", "yesntga:app"]
