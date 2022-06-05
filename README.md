@@ -14,11 +14,11 @@ The compose file creates three containers: **flask**, **db** and **nginx**. Thei
 
 ### App (flask)
 * Python 3.10
-* Shares the Depot and Lynx volumes with NGINX.
+* Shares the Depot volume with NGINX.
 
 ### Web (nginx)
 * Latest NGINX Apine
-* Shares the Depot and Lynx volumes with flask.
+* Shares the Depot volume with flask.
 * Port 8086
 
 This code does not include the blog, or any Depot users.
@@ -28,4 +28,4 @@ This code does not include the blog, or any Depot users.
 Make a venv from `requirements.txt`. I tested this app with Python 3.8 and the Docker image uses Python 3.10. Anything in that version bracket should work.
 
 In the `/app` directory, assuming Bash is your command line, run:
-`FLASK_APP=wsgi:app FLASK_ENV=development flask run`
+`FLASK_APP=yesntga:app FLASK_ENV=development flask run`
