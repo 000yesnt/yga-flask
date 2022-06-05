@@ -35,7 +35,7 @@ def get_h() -> dict:
 				}
 		return health
 
-@routebp.route('/dyntest')
+@routebp.route('/')
 def index():
 	front = {
 		'healthy': 'healthy' if get_h()['healthy'] else 'unhealthy',
