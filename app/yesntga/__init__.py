@@ -1,5 +1,7 @@
-from gevent import monkey
-monkey.patch_all()
+from sys import gettrace
+if gettrace() is None:
+    from gevent import monkey
+    monkey.patch_all()
 
 import logging
 from flask import Flask, Blueprint
@@ -19,7 +21,7 @@ def initialize(conf: dict = None) -> Flask:
     global sign
 
     app = Flask(__name__)
-    app.config.from_object('base_config')
+    app.config.from_object('yesntga.configs.base_config')
 
     if conf is not None:
         lg.info('LOADING Dict Config')

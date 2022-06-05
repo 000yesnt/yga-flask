@@ -1,3 +1,33 @@
+.accordion {
+  --bs-accordion-color: rgba(var(--bs-dark-rgb), var(--bs-text-opacity));
+  --bs-accordion-bg: rgba(var(--bs-dark-rgb), var(--bs-text-opacity));
+  color: rgba(var(--bs-light-rgb), var(--bs-text-opacity));
+  /* --bs-accordion-transition: #{$accordion-transition}; */
+  /* --bs-accordion-border-color: #{$accordion-border-color}; */
+  /* --bs-accordion-border-width: #{$accordion-border-width}; */
+  /* --bs-accordion-border-radius: #{$accordion-border-radius}; */
+  /* --bs-accordion-inner-border-radius: #{$accordion-inner-border-radius}; */
+  /* --bs-accordion-btn-padding-x: #{$accordion-button-padding-x}; */
+  /* --bs-accordion-btn-padding-y: #{$accordion-button-padding-y}; */
+  /* --bs-accordion-btn-color: #{$accordion-color}; */
+  /* --bs-accordion-btn-bg: #{$accordion-button-bg}; */
+  /* --bs-accordion-btn-icon: #{escape-svg($accordion-button-icon)}; */
+  /* --bs-accordion-btn-icon-width: #{$accordion-icon-width}; */
+  /* --bs-accordion-btn-icon-transform: #{$accordion-icon-transform}; */
+  /* --bs-accordion-btn-icon-transition: #{$accordion-icon-transition}; */
+  /* --bs-accordion-btn-active-icon: #{escape-svg($accordion-button-active-icon)}; */
+  /* --bs-accordion-btn-focus-border-color: #{$accordion-button-focus-border-color}; */
+  /* --bs-accordion-btn-focus-box-shadow: #{$accordion-button-focus-box-shadow}; */
+  /* --bs-accordion-body-padding-x: #{$accordion-body-padding-x}; */
+  /* --bs-accordion-body-padding-y: #{$accordion-body-padding-y}; */
+  /* --bs-accordion-active-color: #{$accordion-button-active-color}; */
+  --bs-accordion-active-bg: rgba(var(--bs-dark-rgb), var(--bs-text-opacity));
+}
+
+.accordion-button { 
+  color: rgba(var(--bs-light-rgb), var(--bs-text-opacity));
+}
+
 img.emoji { /* Twemoji */
     height: 1em;
     width: 1em;
@@ -36,6 +66,10 @@ h1 {
 
 .bg-black {
   background-color: black;
+}
+
+.bg-custom-main { 
+  background-color: #2b0630;
 }
 
 /* Copyright (c) 2022 by Tobias (https://codepen.io/Tbgse/pen/dYaJyJ)
