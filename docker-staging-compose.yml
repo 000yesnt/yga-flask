@@ -18,8 +18,8 @@ services:
       MYSQL_DATABASE: yga
       MYSQL_USER: yga
       MYSQL_PASSWORD_FILE: /run/secrets/mysql_password
-    volumes:
-      - db-dev:/var/lib/mysql
+    tmpfs:
+      - /var/lib/mysql
 
   flask-dev:
     networks:
@@ -32,13 +32,11 @@ services:
     depends_on:
       - db-dev
     restart: on-failure
-    tmpfs:
-      - /run
     secrets:
       - mysql_password
       - flask_key
-    volumes:
-      - depot-dev:/var/depot
+    tmpfs:
+      - /var/depot
 
   nginx-dev:
     networks:
@@ -50,12 +48,8 @@ services:
       - flask-dev
     ports:
       - "10086:8086"
-    volumes:
-      - depot-dev:/var/depot
-
-volumes:
-  db-dev:
-  depot-dev:
+    tmpfs:
+      - /var/depot
 
 secrets:
   mysql_password:
