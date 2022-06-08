@@ -39,21 +39,24 @@ def get_h() -> dict:
 def index():
 	front = {
 		'healthy': 'healthy' if get_h()['healthy'] else 'unhealthy',
-		'running-on': get_h()['type'],
+		'running_on': get_h()['type'],
+		'version': get_h()['version'],
 		'pgtitle': 'sussy',
 		'projects': [
 			{
-				'index': '1',
-				'title': 'project 1',
-				'desc': 'sdefrgthyj'
+				'title': 'creature',
+				'desc': 'communication',
+				'url': 'cta.html'
 			},
 			{
-				'index': '2',
-				'title': 'strongest greek man',
-				'desc': '<img src="https://cdn.discordapp.com/attachments/619184266978525207/983104152978743296/literally_me_irl.jpg"/>'
+				'title': 'my brother in christ you cannot dip your balls in hot oil',
+				'desc': 'See how this phrase reminds the book "1894" by Jorjor Wel',
+				'url': 'https://dbd.yesnt.ga/fog/locker/morbius.mp4'
 			}
 		]
 	}
+	for i in front['projects']:
+		i['index'] = front['projects'].index(i)
 	return render_template("front.html", **front)
 
 @routebp.route('/health')

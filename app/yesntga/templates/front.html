@@ -97,7 +97,8 @@
         </h2>
         <div id="collapse{{proj.index}}" class="accordion-collapse collapse" aria-labelledby="heading{{proj.index}}" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            {{proj.desc|safe}}
+            {{proj.desc|safe}}<br>
+            <a class="btn btn-primary" href="{{proj.url}}" role="button">Go</a>
           </div>
         </div>
       </div>
@@ -112,6 +113,9 @@
       <li>👨‍💻 Github: @000yesnt</li>
       <li>This page was made with <h2 style="display:inline">❤️‍🔥</h2></li>
     </ul>
+    <span style="font-size: 0.75em" class="text-white-50">
+      {{healthy}} | type: {{running_on}} | {{version}}
+    </span>
   </div>
 
   <!-- DOM scripts -->
